@@ -10,7 +10,6 @@ Meteor.startup(() => {
 SyncedCron.add({
   name: 'Update Weather Status',
   schedule: function(parser) {
-    // parser is a later.parse object
     return parser.text('every 30 minutes');
   },
   job: function() {
@@ -36,9 +35,12 @@ addCity = function(name, feedURL, lat, long){
   }
 }
 
+
+/*
+    Query and update weather status
+*/
 updateWeatherStatus = function(){
   var cities = citiesDB.find({});
-
   cities.forEach(function(city) {
       let feedData = Scrape.feed(city.feedURL);
 
@@ -51,8 +53,5 @@ updateWeatherStatus = function(){
 
         Markers.update( {cityName : city.cityName} , { $set: { title : title, description : description, pubDate : pubDate }});
       }
-
-
-
     });
 }

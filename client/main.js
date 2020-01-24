@@ -26,7 +26,11 @@ Template.map.onCreated(function() {
             position: new google.maps.LatLng(document.lat, document.lng),
             map: map.instance,
             id: document._id,
-            label: document.title + '\n'
+            label: {
+              text: document.title,
+              color: "#000",
+              fontWeight: "500"
+            },
           });
 
           //Add listeners to display and close info window
@@ -55,6 +59,7 @@ Template.map.onCreated(function() {
 
 Meteor.startup(function() {
   //TODO: hide key in settings,json file
+  //The key has been restricted to be used with only a single domain.
   GoogleMaps.load({ v: '3', key: 'AIzaSyCIBEQH3atkN56OsnJdWmDDCkg5L_ZYKjM', libraries: 'geometry,places' });
 });
 
